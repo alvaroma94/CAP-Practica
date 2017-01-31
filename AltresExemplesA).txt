@@ -1,0 +1,79 @@
+|a b c d|
+a := CoroutineCAP maker: [ :resume :value |
+Transcript show: 'This is A'; cr.
+Transcript show: 'Came from ', (resume value: d value: 'A'); cr. 
+Transcript show: 'Back in A'; cr.
+Transcript show: 'Came from ', (resume value: c value: 'A'); cr. ].
+b := CoroutineCAP maker: [ :resume :value |
+Transcript show: '	This is B'; cr.
+Transcript show: '	Came from ', (resume value: c value: 'B'); cr.
+Transcript show: '	Back in B'; cr.
+Transcript show: '	Came from ', (resume value: a value: 'B'); cr.  ].
+c := CoroutineCAP maker: [ :resume :value |
+Transcript show: '		This is C'; cr.
+Transcript show: ' 		Came from ', (resume value: d value:'C');cr.
+Transcript show: '		Back in C'; cr.
+Transcript show: '		Came from ', (resume value: b value: 'C');cr.].
+d := CoroutineCAP maker: [ :resume :value |
+Transcript show: '			This is D'; cr.
+Transcript show: ' 			Came from ', (resume value: b value:'D');cr.
+Transcript show: '			Back in D'; cr.
+Transcript show: '			Came from ', (resume value: a value: 'D');cr.].
+
+a value: nil. 
+
+—————————————————————————————————————————————————————————————————————————————————————
+
+This is A
+			This is D
+	This is B
+		This is C
+ 			Came from C
+			Back in D
+Came from D
+Back in A
+ 		Came from A
+		Back in C
+	Came from C
+	Back in B
+Came from B
+
+=====================================================================================
+
+|a b c d|
+a := CoroutineCAP maker: [ :resume :value |
+Transcript show: 'This is A'; cr.
+Transcript show: 'Came from ', (resume value: b value: 'A'); cr. 
+Transcript show: 'Back in A'; cr.
+Transcript show: 'Came from ', (resume value: d value: 'A'); cr. ].
+b := CoroutineCAP maker: [ :resume :value |
+Transcript show: '	This is B'; cr.
+Transcript show: '	Came from ', (resume value: c value: 'B'); cr.
+Transcript show: '	Back in B'; cr.
+Transcript show: '	Came from ', (resume value: a value: 'B'); cr.  ].
+c := CoroutineCAP maker: [ :resume :value |
+Transcript show: '		This is C'; cr.
+Transcript show: ' 		Came from ', (resume value: a value:'C');cr.
+Transcript show: '		Back in C'; cr.
+Transcript show: '		Came from ', (resume value: b value: 'C');cr.].
+d := CoroutineCAP maker: [ :resume :value |
+Transcript show: '			This is D'; cr.
+Transcript show: ' 			Came from ', (resume value: b value:'D');cr.
+Transcript show: '			Back in D'; cr.
+Transcript show: '			Came from ', (resume value: a value: 'D');cr.].
+
+a value: nil. 
+
+—————————————————————————————————————————————————————————————————————————————————————
+
+
+This is A
+	This is B
+		This is C
+Came from C
+Back in A
+			This is D
+	Came from D
+	Back in B
+Came from B
+

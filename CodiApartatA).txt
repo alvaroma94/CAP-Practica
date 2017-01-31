@@ -1,0 +1,18 @@
+|a b c|
+a := CoroutineCAP maker: [ :resume :value |
+Transcript show: 'This is A'; cr.
+Transcript show: 'Came from ', (resume value: b value: 'A'); cr. 
+Transcript show: 'Back in A'; cr.
+Transcript show: 'Came from ', (resume value: c value: 'A'); cr. ].
+b := CoroutineCAP maker: [ :resume :value |
+Transcript show: '	This is B'; cr.
+Transcript show: '	Came from ', (resume value: c value: 'B'); cr.
+Transcript show: '	Back in B'; cr.
+Transcript show: '	Came from ', (resume value: a value: 'B'); cr.  ].
+c := CoroutineCAP maker: [ :resume :value |
+Transcript show: '		This is C'; cr.
+Transcript show: ' 		Came from ', (resume value: a value:'C');cr.
+Transcript show: '		Back in C'; cr.
+Transcript show: '		Came from ', (resume value: b value: 'C');cr.].
+
+a value: nil. 

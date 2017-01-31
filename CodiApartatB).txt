@@ -1,0 +1,47 @@
+|mchoice wrank n w m wengagement main|
+
+n := 3.
+w := Array new: n.
+m := Array new: n.
+wengagement := Array new: n.
+mchoice:= Matrix rows: 3 columns: 4.
+wrank:= Matrix rows: 3 columns: 4.
+
+main := CoroutineCAP maker: [:resume :value |  
+	1 to: n do: [:each | resume value: (m at: each) value: each. resume value: (w at: each) value: each. ].
+	mchoice at: 1 at: 1 put: '1'. mchoice at: 1 at: 2 put: 'A'. mchoice at: 1 at: 3 put: 'B'. mchoice at: 1 at: 4 put: 'C'.
+	mchoice at: 2 at: 1 put: '2'. mchoice at: 2 at: 2 put: 'A'. mchoice at: 2 at: 3 put: 'C'. mchoice at: 2 at: 4 put: 'B'.	
+	mchoice at: 3 at: 1 put: '3'. mchoice at: 3 at: 2 put: 'B'. mchoice at: 3 at: 3 put: 'C'. mchoice at: 3 at: 4 put: 'A'.
+
+	wrank at: 1 at: 1 put: 'A'. wrank at: 1 at: 2 put: '2'. wrank at: 1 at: 3 put: '1'.  wrank at: 1 at: 4 put: '3'.
+	wrank at: 2 at: 1 put: 'B'. wrank at: 2 at: 2 put: '2'. wrank at: 2 at: 3 put: '3'.  wrank at: 2 at: 4 put: '1'.
+	wrank at: 3 at: 1 put: 'C'. wrank at: 3 at: 2 put: '1'. wrank at: 3 at: 3 put: '2'.  wrank at: 3 at: 4 put: '3'.
+	1 to: n do: [:each | resume value: (m at: each) value: nil. ].
+	Transcript show: wengagement.
+	].
+
+1 to: n do: [:each | 
+		m at: each put: (CoroutineCAP  maker: [ :resume :value | 
+			|j choice a me|
+			me := value.
+			resume value: main value: nil.
+			j := 2.
+			j to: n + 1 do: [:each2 |
+				choice := mchoice at: each at: each2.
+				a := '$' , choice at: 2.
+				choice := ((a asciiValue) - ($A asciiValue)) + 1.
+				resume value: (w at: choice) value: me.
+				].
+			 ]).
+		w at: each put: (CoroutineCAP  maker: [ :resume :value |
+			|jilt me suitor|
+			me := value.
+			suitor := resume value: main value: nil.
+			wengagement at: me put: suitor.
+			suitor := resume value: main value: nil.
+		 	((wrank at: me at: suitor) < (wrank at: me at: (wengagement at: me)))
+			ifTrue: [jilt:= wengagement at: me. wengagement at: me put: suitor. resume value: (m at: jilt) value: nil. ]
+			ifFalse: [ resume value: (m at: each) value: nil. ].]).
+	].
+
+main value: nil.
