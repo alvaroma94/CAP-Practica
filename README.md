@@ -1,7 +1,7 @@
 # CAP-Practica
 Práctica de la asignatura de Conceptos Avanzados de Programación (CAP) de la FIB Q1 16-17
 
-## Ficheros:
+## Ficheros
 
 - CAPQ116-17.pdf (PDF explicativo, necesario lectura previa antes de ejecutar la práctica para ejecutarla con éxito)
 
@@ -17,7 +17,7 @@ Práctica de la asignatura de Conceptos Avanzados de Programación (CAP) de la F
 
 - AltresExemplesA).txt (Otros ejemplos que hemos pensado nosotros para el apartado a))
 
-## Miembros del grupo:
+## Miembros del grupo
 
 Álvaro Martínez Arroyo
 
